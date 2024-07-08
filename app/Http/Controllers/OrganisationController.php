@@ -30,10 +30,10 @@ class OrganisationController extends Controller
 
     public function show($orgId)
     {
-        // Fetch the authenticated user
+
         $user = Auth::user();
 
-        // Find organisation
+
         $organisation = Organisation::find($orgId);
 
         if (!$organisation) {
@@ -43,7 +43,6 @@ class OrganisationController extends Controller
             ], 404);
         }
 
-        // Check if the user belongs to this organisation
         if ($organisation->users()->where('user_id', $user->id)->exists()) {
             return response()->json([
                 'status' => 'success',
@@ -84,7 +83,7 @@ class OrganisationController extends Controller
     {
 
         $request->validate([
-            'userId' => 'required|string',
+            'Id' => 'required|string',
         ]);
 
         $organisation = Organisation::find($orgId);
@@ -96,7 +95,7 @@ class OrganisationController extends Controller
             ], 404);
         }
 
-        $user = User::find($request->userId);
+        $user = User::find($request->Id);
 
         if (!$user) {
             return response()->json([
@@ -105,7 +104,7 @@ class OrganisationController extends Controller
             ], 404);
         }
 
-        if ($organisation->users()->where('user_id', $request->userId)->exists()) {
+        if ($organisation->users()->where('user_id', $request->Id)->exists()) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'User already exists in the organisation',
