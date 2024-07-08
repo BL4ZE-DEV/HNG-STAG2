@@ -24,7 +24,7 @@ class AuthTest extends TestCase
             'password_confirmation' => 'password'
         ];
 
-        $response = $this->postJson('auth/register', $userData);
+        $response = $this->postJson('api/auth/register', $userData);
 
         $response->assertStatus(201)
             ->assertJsonStructure([
@@ -41,6 +41,7 @@ class AuthTest extends TestCase
                     ],
                 ],
             ]);
+
 
         $this->assertDatabaseHas('organisations', [
             'name' => "John's Organisation",
@@ -66,7 +67,7 @@ class AuthTest extends TestCase
             'password' => $password,
         ];
 
-        $response = $this->postJson('auth/login', $loginData);
+        $response = $this->postJson('api/auth/login', $loginData);
 
         $response->assertStatus(200)
             ->assertJsonStructure([
@@ -88,7 +89,7 @@ class AuthTest extends TestCase
     /** @test */
     public function it_fails_to_register_user_with_missing_fields()
     {
-        $response = $this->postJson('auth/register', []);
+        $response = $this->postJson('api/auth/register', []);
 
         $response->assertStatus(422)
             ->assertJsonStructure([
@@ -119,7 +120,7 @@ class AuthTest extends TestCase
             'password_confirmation' => 'password'
         ];
 
-        $response = $this->postJson('auth/register', $userData);
+        $response = $this->postJson('api/auth/register', $userData);
 
         $response->assertStatus(422)
             ->assertJson([

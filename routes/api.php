@@ -5,15 +5,14 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\UserController;
 
-Route::redirect('/', '/health');
-Route::post('/auth/register', [AuthController::class, 'register']);
-Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/api/auth/register', [AuthController::class, 'register'])->name('register');
+Route::post('/api/auth/login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('/api/users/{id}', [UserController::class, 'show']);
+    Route::get('/api/users/{id}', [UserController::class, 'show'])->name('show');
 
-    Route::post('/api/organisations', [OrganisationController::class, 'store']);
-    Route::get('/api/organisations', [OrganisationController::class, 'index']);
-    Route::get('/api/organisations/{orgId}', [OrganisationController::class, 'show']);
-    Route::post('/api/organisations/{orgId}/users', [OrganisationController::class, 'addUser']);
+    Route::post('/api/organisations', [OrganisationController::class, 'store'])->name('store');;
+    Route::get('/api/organisations', [OrganisationController::class, 'index'])->name('index');;
+    Route::get('/api/organisations/{orgId}', [OrganisationController::class, 'show'])->name('show');;
+    Route::post('/api/organisations/{orgId}/users', [OrganisationController::class, 'addUser'])->name('show');;
 });

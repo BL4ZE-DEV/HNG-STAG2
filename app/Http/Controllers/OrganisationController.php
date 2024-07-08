@@ -11,14 +11,12 @@ class OrganisationController extends Controller
 {
     public function index()
     {
-        // Fetch the authenticated user
         $user = Auth::user();
 
         if (!($user instanceof User)) {
             return response(['message' => 'User not found'], 404);
         }
 
-        // Get organisations user belongs to or created
         $organisations = $user->organisations()->get();
 
         return response()->json([
