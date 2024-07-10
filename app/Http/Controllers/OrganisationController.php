@@ -83,7 +83,7 @@ class OrganisationController extends Controller
     {
 
         $request->validate([
-            'Id' => 'required|string',
+            'id' => 'required|string',
         ]);
 
         $organisation = Organisation::find($orgId);
@@ -95,7 +95,7 @@ class OrganisationController extends Controller
             ], 404);
         }
 
-        $user = User::find($request->Id);
+        $user = User::find($request->id);
 
         if (!$user) {
             return response()->json([
@@ -104,7 +104,7 @@ class OrganisationController extends Controller
             ], 404);
         }
 
-        if ($organisation->users()->where('user_id', $request->Id)->exists()) {
+        if ($organisation->users()->where('user_id', $request->id)->exists()) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'User already exists in the organisation',

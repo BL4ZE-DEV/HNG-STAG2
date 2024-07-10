@@ -29,7 +29,6 @@ class AuthController extends Controller
         }
 
         $userData = User::create([
-            'userId' =>  Str::uuid(),
             'firstName' => $request->input('firstName'),
             'lastName' => $request->input('lastName'),
             'email' => $request->input('email'),
@@ -52,7 +51,7 @@ class AuthController extends Controller
             'message' => 'Registration successful',
             'data' => [
                 'accessToken' => $token,
-                'user' => $userData,
+                'user' => new UserResource($userData)
             ],
         ], 201);
     }
@@ -78,7 +77,7 @@ class AuthController extends Controller
             'message' => 'Login successful',
             'data' => [
                 'accessToken' => $token,
-                'user' => $user,
+                'user' => new UserResource($user),
             ],
         ]);
     }

@@ -13,7 +13,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('/api/organisations', [OrganisationController::class, 'store'])->name('store');;
     Route::get('/api/organisations', [OrganisationController::class, 'index'])->name('index');;
-    Route::get('/api/organisations/{orgId}', [OrganisationController::class, 'show'])->name('show');;
+    Route::get('/api/organisations/{orgId}', [OrganisationController::class, 'show'])->name('orgshow');;
 });
 
-Route::post('/api/organisations/{orgId}/users', [OrganisationController::class, 'addUser'])->name('show');
+Route::post('/api/organisations/{orgId}/users', [OrganisationController::class, 'addUser'])->name('add');

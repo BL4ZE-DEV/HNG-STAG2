@@ -54,7 +54,6 @@ class AuthTest extends TestCase
         $password = 'password';
 
         $user = User::create([
-            'userId' => Str::uuid(),
             'firstName' => 'John',
             'lastName' => 'Doe',
             'email' => 'john.doe@example.com',
@@ -104,7 +103,6 @@ class AuthTest extends TestCase
     public function it_fails_to_register_user_with_duplicate_email()
     {
         $user = User::create([
-            'userId' => Str::uuid(),
             'firstName' => 'John',
             'lastName' => 'Doe',
             'email' => 'john.doe@example.com',

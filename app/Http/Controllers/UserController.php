@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function show($userId)
+    public function show($id)
     {
         $authUser = Auth::user();
 
-        if ($authUser->userId === $userId) {
+        if ($authUser->id === $id) {
             return response()->json([
                 'status' => 'success',
                 'message' => 'User retrieved successfully',
                 'data' => [
-                    'userId' => $authUser->userId,
+                    'userId' => $authUser->id,
                     'firstName' => $authUser->firstName,
                     'lastName' => $authUser->lastName,
                     'email' => $authUser->email,
@@ -26,13 +26,13 @@ class UserController extends Controller
             ], 200);
         }
 
-        $user = User::find($userId);
+        $user = User::find($id);
         if ($user && $authUser->organisations->intersect($user->organisations)->isNotEmpty()) {
             return response()->json([
                 'status' => 'success',
                 'message' => 'User retrieved successfully',
                 'data' => [
-                    'userId' => $user->userId,
+                    'userId' => $user->id,
                     'firstName' => $user->firstName,
                     'lastName' => $user->lastName,
                     'email' => $user->email,
@@ -40,7 +40,7 @@ class UserController extends Controller
                 ],
             ], 200);
         }
-        
+
         return response()->json([
             'status' => 'error',
             'message' => 'User not found or unauthorized',

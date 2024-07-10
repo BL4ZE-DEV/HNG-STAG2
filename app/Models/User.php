@@ -19,7 +19,6 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
-        'userId',
         'firstName',
         'lastName',
         'email',
@@ -77,11 +76,5 @@ class User extends Authenticatable implements JWTSubject
     public function organisations()
     {
         return $this->belongsToMany(Organisation::class, 'organisation_user', 'user_id', 'organisation_id');
-    }
-
-    public function belongsToOrganisation($orgId)
-    {
-        // Check if the user belongs to the organisation
-        return $this->organisations()->where('id', $orgId)->exists();
     }
 }
